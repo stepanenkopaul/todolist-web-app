@@ -1,0 +1,14 @@
+<p>Item-list works!</p>
+<button (click)="getItems()">Get list</button>
+
+<div *ngIf="items.length">
+    <ul>
+      <li *ngFor="let item of items">
+        {{ item.name }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="!items.length">
+    No items found.
+  </div>
+
