@@ -6,8 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { AppComponent } from './app.component';
-import { ItemListComponent } from './components/item-list/item-list.component';
-import { HomeComponent } from './components/home/home.component';
+import { ItemListComponent } from './item-list/item-list.component';
+import { HomeComponent } from './home/home.component';
 
 import { RouterOutlet, provideRouter } from '@angular/router';
 import { routes } from './app.routes';
