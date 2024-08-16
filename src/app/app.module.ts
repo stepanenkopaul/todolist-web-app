@@ -12,6 +12,46 @@ import { HomeComponent } from './components/home/home.component';
 import { RouterOutlet, provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+
+
+
+function initializeKeycloak(keycloak: KeycloakService) {
+  return () =>
+    keycloak.init({
+      config: {
+        url: 'http://localhost:8080',
+        realm: 'todolist',
+        clientId: 'todolist-app'
+      },
+      initOptions: {
+        onLoad: 'check-sso',
+        silentCheckSsoRedirectUri:
+          window.location.origin + '/assets/silent-check-sso.html'
+      }
+    });
+}
+
+
+
+/*
+function initializeKeycloak(keycloak: KeycloakService) {
+  return () =>
+    keycloak.init({
+      config: {
+        realm: 'keycloak-angular-sandbox',
+        url: 'http://localhost:8080',
+        clientId: 'keycloak-angular'
+      },
+      initOptions: {
+        onLoad: 'check-sso',
+        silentCheckSsoRedirectUri:
+          window.location.origin + '/assets/silent-check-sso.html'
+      }
+    });
+}
+*/
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,9 +66,18 @@ import { routes } from './app.routes';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    KeycloakAngularModule
 
   ],
-  providers: [provideRouter(routes)],
+  providers: [
+    provideRouter(routes),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService]
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
