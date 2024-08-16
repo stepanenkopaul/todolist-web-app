@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ItemListComponent } from './item-list/item-list.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './services/auth/auth.guard';
 
 export const routes: Routes = [
 
@@ -12,6 +13,7 @@ export const routes: Routes = [
     data: {
       title: 'Home',
     },
+    canActivate: [AuthGuard],
   },
 
   {
@@ -20,6 +22,7 @@ export const routes: Routes = [
     data: {
       title: 'Item list',
     },
+    canActivate: [AuthGuard],
   },
 
 
