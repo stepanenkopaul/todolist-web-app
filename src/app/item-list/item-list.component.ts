@@ -18,4 +18,14 @@ export class ItemListComponent {
       this.items = data;
     });
   }
+
+
+  addItem() {
+    const item = { name: 'New Item' };
+    this.apiService.addItem(item).subscribe({
+      next: (response) => console.log('Item added:', response),
+      error: (err) => console.error('Error:', err),
+    });
+  }
+
 }

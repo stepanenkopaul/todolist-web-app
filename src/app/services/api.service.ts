@@ -16,6 +16,7 @@ export class ApiService {
   }
 
   addItem(item: any): Observable<any> {
+    console.log("addItem")
     return this.http.post(`${this.apiUrl}/items`, item);
   }
 }

@@ -1,6 +1,6 @@
 <p>Item-list works!</p>
-<button (click)="getItems()">Get list</button>
-
+<div><button (click)="getItems()">Get list</button></div>
+<div><button (click)="addItem()">Add Item</button></div>
 <div *ngIf="items.length">
     <ul>
       <li *ngFor="let item of items">
