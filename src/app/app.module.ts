@@ -13,8 +13,10 @@ import { RouterOutlet, provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -66,7 +68,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    MatInputModule, // Импортируем MatInputModule
+    MatFormFieldModule // Импортируем MatFormFieldModule
 
   ],
   providers: [
@@ -76,7 +80,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
       useFactory: initializeKeycloak,
       multi: true,
       deps: [KeycloakService]
-    }
+    },
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent],
 })

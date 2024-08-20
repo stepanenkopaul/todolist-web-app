@@ -9,7 +9,7 @@ import { ApiService } from '../services/api.service';
 export class ItemListComponent {
 
   items: any[] = [];
-
+  itemName: string = ''; // Переменная для привязки данных
   constructor(private apiService: ApiService) { }
 
 
@@ -21,11 +21,22 @@ export class ItemListComponent {
 
 
   addItem() {
-    const item = { name: 'New Item' };
+
+    const item = {
+      text : this.itemName,
+      isEditing : false,
+      priority : 0,
+      state : 0,
+      startDate : null,
+      endDate : null,
+    }
+
     this.apiService.addItem(item).subscribe({
       next: (response) => console.log('Item added:', response),
       error: (err) => console.error('Error:', err),
     });
+
+
   }
 
 }

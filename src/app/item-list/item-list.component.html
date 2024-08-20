@@ -1,10 +1,18 @@
 <p>Item-list works!</p>
+
 <div><button (click)="getItems()">Get list</button></div>
+<mat-form-field>
+  <mat-label>Item name</mat-label>
+    <input matInput placeholder="Insert item name" [(ngModel)]="itemName">
+
+</mat-form-field>
 <div><button (click)="addItem()">Add Item</button></div>
+
+
 <div *ngIf="items.length">
     <ul>
       <li *ngFor="let item of items">
-        {{ item.name }}
+        {{ item.text }}
       </li>
     </ul>
   </div>
