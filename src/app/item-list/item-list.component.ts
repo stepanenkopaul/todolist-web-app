@@ -35,8 +35,17 @@ export class ItemListComponent {
       next: (response) => console.log('Item added:', response),
       error: (err) => console.error('Error:', err),
     });
+  }
 
-
+  deleteItem(id: any) {
+    this.apiService.deleteItem(id).subscribe(
+      (response) => {
+        console.log('Item deleted successfully:', response);
+      },
+      (error) => {
+        console.error('Error deleting item:', error);
+      }
+    );
   }
 
 }

@@ -12,11 +12,16 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getItems(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/items`);
+    return this.http.get(`${this.apiUrl}/getItems`);
   }
 
   addItem(item: any): Observable<any> {
     console.log("addItem")
-    return this.http.post(`${this.apiUrl}/items`, item);
+    return this.http.post(`${this.apiUrl}/addItem`, item);
+  }
+
+  deleteItem(id: any): Observable<any> {
+    console.log("deleteItem:" + id);
+    return this.http.post(`${this.apiUrl}/deleteItem`, { id: id });
   }
 }

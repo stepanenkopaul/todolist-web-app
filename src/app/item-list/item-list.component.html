@@ -12,8 +12,16 @@
 <div *ngIf="items.length">
     <ul>
       <li *ngFor="let item of items">
+        {{ item._id }}
+        <label>|||</label>
         {{ item.text }}
+        <label>|||</label>
+        {{ item.userId }}
+        <button>edit</button>
+        <button>save</button>
+        <button (click)="deleteItem(item._id)">delete</button>
       </li>
+
     </ul>
   </div>
   <div *ngIf="!items.length">
