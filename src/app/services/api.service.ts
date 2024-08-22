@@ -20,6 +20,12 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/addItem`, item);
   }
 
+  saveItem(item: any): Observable<any> {
+    console.log("saveItem")
+    item.isSaved=true;
+    return this.http.post(`${this.apiUrl}/saveItem`, item);
+  }
+
   deleteItem(id: any): Observable<any> {
     console.log("deleteItem:" + id);
     return this.http.post(`${this.apiUrl}/deleteItem`, { id: id });

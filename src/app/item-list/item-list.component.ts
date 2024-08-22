@@ -1,51 +1,90 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 
+interface ClientItem {
+  _id: string;
+  text: string;
+  priority: number;
+  state: number;
+  startDate: Date;
+  endDate: Date;
+  userId: string;
+  isEditing: boolean;
+  isSaved: boolean;
+}
+
+interface AddItem {
+  text: string;
+  priority: number;
+  state: number;
+  startDate: Date | null;
+  endDate: Date | null;
+}
+
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.css']
 })
-export class ItemListComponent {
+export class ItemListComponent implements OnInit {
 
   items: any[] = [];
   itemName: string = ''; // Переменная для привязки данных
   constructor(private apiService: ApiService) { }
 
+  ngOnInit(): void {
+    this.getItems();
+  }
 
   getItems(){
     this.apiService.getItems().subscribe(data => {
-      this.items = data;
+      this.items = data.map((item: ClientItem) => ({
+        ...item,
+        isEditing: false,
+        isSaved: true
+      }));
     });
   }
 
 
   addItem() {
-
-    const item = {
-      text : this.itemName,
-      isEditing : false,
-      priority : 0,
-      state : 0,
-      startDate : null,
-      endDate : null,
-    }
+    const item: AddItem = {
+      text: this.itemName,
+      priority: 0,
+      state: 0,
+      startDate: null,
+      endDate: null,
+    };
 
     this.apiService.addItem(item).subscribe({
-      next: (response) => console.log('Item added:', response),
+      next: (response) => {console.log('Item added:', response); this.getItems()},
+
+      error: (err) => console.error('Error:', err),
+    });
+  }
+
+  saveItem(item:any){
+    this.apiService.saveItem(item).subscribe({
+      next: (response) => {console.log('Item saved:', response); this.getItems()},
       error: (err) => console.error('Error:', err),
     });
   }
 
   deleteItem(id: any) {
-    this.apiService.deleteItem(id).subscribe(
-      (response) => {
-        console.log('Item deleted successfully:', response);
-      },
-      (error) => {
-        console.error('Error deleting item:', error);
-      }
-    );
+    this.apiService.deleteItem(id).subscribe({
+      next: (response) => {console.log('Item deleted:', response); this.getItems()},
+      error: (err) => console.error('Error:', err),
+    });
+  }
+
+  editItem(item:any){
+    item.isEditing = !item.isEditing;
+  }
+
+  itemChanged(item:any){
+    item.isSaved = false;
+    console.log("itemChanged:"+item.isSaved)
+
   }
 
 }

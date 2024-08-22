@@ -12,14 +12,14 @@
 <div *ngIf="items.length">
     <ul>
       <li *ngFor="let item of items">
-        {{ item._id }}
-        <label>|||</label>
-        {{ item.text }}
-        <label>|||</label>
-        {{ item.userId }}
-        <button>edit</button>
-        <button>save</button>
+
+        <label *ngIf="!item.isEditing">{{ item.text }}</label>
+        <label *ngIf="!item.isEditing && !item.isSaved">*</label>
+        <input (ngModelChange)="itemChanged(item)" *ngIf="item.isEditing" matInput placeholder="Insert item name" [(ngModel)]="item.text">
+        <button (click)="editItem(item)">edit</button>
+        <button (click)="saveItem(item)">save</button>
         <button (click)="deleteItem(item._id)">delete</button>
+
       </li>
 
     </ul>
