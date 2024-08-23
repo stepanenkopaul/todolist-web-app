@@ -16,7 +16,10 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { MatInputModule } from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -34,26 +37,6 @@ function initializeKeycloak(keycloak: KeycloakService) {
     });
 }
 
-
-
-/*
-function initializeKeycloak(keycloak: KeycloakService) {
-  return () =>
-    keycloak.init({
-      config: {
-        realm: 'keycloak-angular-sandbox',
-        url: 'http://localhost:8080',
-        clientId: 'keycloak-angular'
-      },
-      initOptions: {
-        onLoad: 'check-sso',
-        silentCheckSsoRedirectUri:
-          window.location.origin + '/assets/silent-check-sso.html'
-      }
-    });
-}
-*/
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,8 +52,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
     FormsModule,
     ReactiveFormsModule,
     KeycloakAngularModule,
-    MatInputModule, // Импортируем MatInputModule
-    MatFormFieldModule // Импортируем MatFormFieldModule
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDatepickerModule
 
   ],
   providers: [
@@ -81,7 +66,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
       multi: true,
       deps: [KeycloakService]
     },
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideNativeDateAdapter()
   ],
   bootstrap: [AppComponent],
 })

@@ -21,6 +21,16 @@ interface AddItem {
   endDate: Date | null;
 }
 
+interface Priority {
+  value: number;
+  viewValue: string;
+}
+
+interface State {
+  value: number;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
@@ -29,7 +39,30 @@ interface AddItem {
 export class ItemListComponent implements OnInit {
 
   items: any[] = [];
-  itemName: string = ''; // Переменная для привязки данных
+  itemToAdd: AddItem = {
+    text: '',
+    priority: 0,
+    state: 0,
+    startDate: null,
+    endDate: null}; // Переменная для привязки данных
+
+  priorities: Priority[] = [
+    {value :0,  viewValue:"none"},
+    {value :1,  viewValue:"small"},
+    {value :2,  viewValue:"normal"},
+    {value :3,  viewValue:"high"},
+    {value :4,  viewValue:"important"},
+    {value :5,  viewValue:"urgent"}
+  ];
+
+  states: State[] = [
+    {value :0,  viewValue:"not started"},
+    {value :1,  viewValue:"progress"},
+    {value :2,  viewValue:"completed"},
+
+  ];
+
+
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
@@ -49,11 +82,11 @@ export class ItemListComponent implements OnInit {
 
   addItem() {
     const item: AddItem = {
-      text: this.itemName,
-      priority: 0,
-      state: 0,
-      startDate: null,
-      endDate: null,
+      text: this.itemToAdd.text,
+      priority: this.itemToAdd.priority,
+      state: this.itemToAdd.state,
+      startDate: this.itemToAdd.startDate,
+      endDate: this.itemToAdd.endDate,
     };
 
     this.apiService.addItem(item).subscribe({

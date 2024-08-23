@@ -1,11 +1,47 @@
 <p>Item-list works!</p>
 
-<div><button (click)="getItems()">Get list</button></div>
+
 <mat-form-field>
   <mat-label>Item name</mat-label>
-    <input matInput placeholder="Insert item name" [(ngModel)]="itemName">
-
+    <input matInput placeholder="Insert item name" [(ngModel)]="itemToAdd.text">
 </mat-form-field>
+
+<mat-form-field>
+  <mat-label>Priority</mat-label>
+  <mat-select [(ngModel)]="itemToAdd.priority">
+    @for (priority of priorities; track priority) {
+      <mat-option [value]="priority.value">{{priority.viewValue}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>State</mat-label>
+  <mat-select [(ngModel)]="itemToAdd.state">
+    @for (state of states; track state) {
+      <mat-option [value]="state.value">{{state.viewValue}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+
+<mat-form-field>
+  <mat-label>Start date</mat-label>
+  <input [(ngModel)]="itemToAdd.startDate" matInput [matDatepicker]="startDatePicker">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+  <mat-datepicker #startDatePicker></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>End date</mat-label>
+  <input [(ngModel)]="itemToAdd.endDate" matInput [matDatepicker]="endDatePicker">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+  <mat-datepicker #endDatePicker></mat-datepicker>
+</mat-form-field>
+
+
 <div><button (click)="addItem()">Add Item</button></div>
 
 
