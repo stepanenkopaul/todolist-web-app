@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 import { AppComponent } from './app.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { HomeComponent } from './home/home.component';
@@ -16,14 +15,14 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { MatInputModule } from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {provideNativeDateAdapter} from '@angular/material/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -31,23 +30,17 @@ function initializeKeycloak(keycloak: KeycloakService) {
       config: {
         url: 'http://localhost:8080',
         realm: 'todolist',
-        clientId: 'todolist-app'
+        clientId: 'todolist-app',
       },
       initOptions: {
         onLoad: 'check-sso',
-        silentCheckSsoRedirectUri:
-          window.location.origin + '/assets/silent-check-sso.html'
-      }
+        silentCheckSsoRedirectUri: window.location.origin + '/assets/silent-check-sso.html',
+      },
     });
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ItemListComponent,
-    HomeComponent
-
-  ],
+  declarations: [AppComponent, ItemListComponent, HomeComponent],
   imports: [
     RouterOutlet,
     BrowserModule,
@@ -63,8 +56,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatButtonModule,
     MatIconModule,
     MatListModule,
-    MatDividerModule
-
+    MatDividerModule,
   ],
   providers: [
     provideRouter(routes),
@@ -72,10 +64,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,
       multi: true,
-      deps: [KeycloakService]
+      deps: [KeycloakService],
     },
     provideAnimationsAsync(),
-    provideNativeDateAdapter()
+    provideNativeDateAdapter(),
   ],
   bootstrap: [AppComponent],
 })

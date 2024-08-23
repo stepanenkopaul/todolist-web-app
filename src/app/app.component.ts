@@ -5,9 +5,9 @@ import { KeycloakProfile } from 'keycloak-js';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'todolist-web-app';
 
   public isLoggedIn = false;
@@ -30,5 +30,4 @@ export class AppComponent implements OnInit{
   public logout() {
     this.keycloak.logout();
   }
-
 }

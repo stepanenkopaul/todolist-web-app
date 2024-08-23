@@ -1,52 +1,49 @@
 <p>Item-list works!</p>
 
 <div>
-<mat-form-field>
-  <mat-label>Item name</mat-label>
-    <input matInput placeholder="Insert item name" [(ngModel)]="itemToAdd.text">
-</mat-form-field>
+  <mat-form-field>
+    <mat-label>Item name</mat-label>
+    <input matInput placeholder="Insert item name" [(ngModel)]="itemToAdd.text" />
+  </mat-form-field>
 
-<mat-form-field>
-  <mat-label>Priority</mat-label>
-  <mat-select [(ngModel)]="itemToAdd.priority">
-    @for (priority of priorities; track priority) {
-      <mat-option [value]="priority.value">{{priority.viewValue}}</mat-option>
-    }
-  </mat-select>
-</mat-form-field>
+  <mat-form-field>
+    <mat-label>Priority</mat-label>
+    <mat-select [(ngModel)]="itemToAdd.priority">
+      @for (priority of priorities; track priority) {
+        <mat-option [value]="priority.value">{{ priority.viewValue }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
 
-<mat-form-field>
-  <mat-label>State</mat-label>
-  <mat-select [(ngModel)]="itemToAdd.state">
-    @for (state of states; track state) {
-      <mat-option [value]="state.value">{{state.viewValue}}</mat-option>
-    }
-  </mat-select>
-</mat-form-field>
+  <mat-form-field>
+    <mat-label>State</mat-label>
+    <mat-select [(ngModel)]="itemToAdd.state">
+      @for (state of states; track state) {
+        <mat-option [value]="state.value">{{ state.viewValue }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
 
+  <mat-form-field>
+    <mat-label>Start date</mat-label>
+    <input [(ngModel)]="itemToAdd.startDate" matInput [matDatepicker]="startDatePicker" />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #startDatePicker></mat-datepicker>
+  </mat-form-field>
 
-<mat-form-field>
-  <mat-label>Start date</mat-label>
-  <input [(ngModel)]="itemToAdd.startDate" matInput [matDatepicker]="startDatePicker">
-  <mat-hint>MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-  <mat-datepicker #startDatePicker></mat-datepicker>
-</mat-form-field>
+  <mat-form-field>
+    <mat-label>End date</mat-label>
+    <input [(ngModel)]="itemToAdd.endDate" matInput [matDatepicker]="endDatePicker" />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #endDatePicker></mat-datepicker>
+  </mat-form-field>
 
-<mat-form-field>
-  <mat-label>End date</mat-label>
-  <input [(ngModel)]="itemToAdd.endDate" matInput [matDatepicker]="endDatePicker">
-  <mat-hint>MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-  <mat-datepicker #endDatePicker></mat-datepicker>
-</mat-form-field>
-
-<button mat-flat-button (click)="addItem()">Add Item</button>
+  <button mat-flat-button (click)="addItem()">Add Item</button>
 </div>
 
 <mat-divider [inset]="true"></mat-divider>
-
-
 
 <div *ngIf="items.length">
   <mat-list>
@@ -63,18 +60,17 @@
         </mat-form-field>
         <div class="item-buttons">
           <button mat-flat-button color="primary" (click)="editItem(item)">Edit</button>
-          <button mat-flat-button [color]="!item.isEditing && !item.isSaved ? 'warn' : 'primary'"  (click)="saveItem(item)">Save</button>
+          <button
+            mat-flat-button
+            [color]="!item.isEditing && !item.isSaved ? 'warn' : 'primary'"
+            (click)="saveItem(item)"
+          >
+            Save
+          </button>
           <button mat-flat-button color="warn" (click)="deleteItem(item._id)">Delete</button>
         </div>
       </div>
-
     </mat-list-item>
   </mat-list>
 </div>
-<div *ngIf="!items.length">
-  No items found.
-</div>
-
-
-
-
+<div *ngIf="!items.length">No items found.</div>

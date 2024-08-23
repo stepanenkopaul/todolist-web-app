@@ -34,51 +34,48 @@ interface State {
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
-  styleUrls: ['./item-list.component.css']
+  styleUrls: ['./item-list.component.css'],
 })
 export class ItemListComponent implements OnInit {
-
   items: any[] = [];
   itemToAdd: AddItem = {
     text: '',
     priority: 0,
     state: 0,
     startDate: null,
-    endDate: null}; // Переменная для привязки данных
+    endDate: null,
+  }; // Переменная для привязки данных
 
   priorities: Priority[] = [
-    {value :0,  viewValue:"none"},
-    {value :1,  viewValue:"small"},
-    {value :2,  viewValue:"normal"},
-    {value :3,  viewValue:"high"},
-    {value :4,  viewValue:"important"},
-    {value :5,  viewValue:"urgent"}
+    { value: 0, viewValue: 'none' },
+    { value: 1, viewValue: 'small' },
+    { value: 2, viewValue: 'normal' },
+    { value: 3, viewValue: 'high' },
+    { value: 4, viewValue: 'important' },
+    { value: 5, viewValue: 'urgent' },
   ];
 
   states: State[] = [
-    {value :0,  viewValue:"not started"},
-    {value :1,  viewValue:"progress"},
-    {value :2,  viewValue:"completed"},
-
+    { value: 0, viewValue: 'not started' },
+    { value: 1, viewValue: 'progress' },
+    { value: 2, viewValue: 'completed' },
   ];
 
-
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.getItems();
   }
 
-  getItems(){
-    this.apiService.getItems().subscribe(data => {
+  getItems() {
+    this.apiService.getItems().subscribe((data) => {
       this.items = data.map((item: ClientItem) => ({
         ...item,
         isEditing: false,
-        isSaved: true
+        isSaved: true,
       }));
     });
   }
-
 
   addItem() {
     const item: AddItem = {
@@ -90,34 +87,41 @@ export class ItemListComponent implements OnInit {
     };
 
     this.apiService.addItem(item).subscribe({
-      next: (response) => {console.log('Item added:', response); this.getItems()},
+      next: (response) => {
+        console.log('Item added:', response);
+        this.getItems();
+      },
 
       error: (err) => console.error('Error:', err),
     });
   }
 
-  saveItem(item:any){
+  saveItem(item: any) {
     this.apiService.saveItem(item).subscribe({
-      next: (response) => {console.log('Item saved:', response); this.getItems()},
+      next: (response) => {
+        console.log('Item saved:', response);
+        this.getItems();
+      },
       error: (err) => console.error('Error:', err),
     });
   }
 
   deleteItem(id: any) {
     this.apiService.deleteItem(id).subscribe({
-      next: (response) => {console.log('Item deleted:', response); this.getItems()},
+      next: (response) => {
+        console.log('Item deleted:', response);
+        this.getItems();
+      },
       error: (err) => console.error('Error:', err),
     });
   }
 
-  editItem(item:any){
+  editItem(item: any) {
     item.isEditing = !item.isEditing;
   }
 
-  itemChanged(item:any){
+  itemChanged(item: any) {
     item.isSaved = false;
-    console.log("itemChanged:"+item.isSaved)
-
+    console.log('itemChanged:' + item.isSaved);
   }
-
 }
