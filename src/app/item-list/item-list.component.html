@@ -1,6 +1,6 @@
 <p>Item-list works!</p>
 
-
+<div>
 <mat-form-field>
   <mat-label>Item name</mat-label>
     <input matInput placeholder="Insert item name" [(ngModel)]="itemToAdd.text">
@@ -41,26 +41,40 @@
   <mat-datepicker #endDatePicker></mat-datepicker>
 </mat-form-field>
 
+<button mat-flat-button (click)="addItem()">Add Item</button>
+</div>
 
-<div><button (click)="addItem()">Add Item</button></div>
+<mat-divider [inset]="true"></mat-divider>
+
 
 
 <div *ngIf="items.length">
-    <ul>
-      <li *ngFor="let item of items">
+  <mat-list>
+    <mat-list-item *ngFor="let item of items">
+      <div class="item-container">
+        <mat-form-field appearance="fill" class="item-input">
+          <input
+            matInput
+            placeholder="Enter text"
+            [(ngModel)]="item.text"
+            [disabled]="!item.isEditing"
+            (ngModelChange)="itemChanged(item)"
+          />
+        </mat-form-field>
+        <div class="item-buttons">
+          <button mat-flat-button color="primary" (click)="editItem(item)">Edit</button>
+          <button mat-flat-button [color]="!item.isEditing && !item.isSaved ? 'warn' : 'primary'"  (click)="saveItem(item)">Save</button>
+          <button mat-flat-button color="warn" (click)="deleteItem(item._id)">Delete</button>
+        </div>
+      </div>
 
-        <label *ngIf="!item.isEditing">{{ item.text }}</label>
-        <label *ngIf="!item.isEditing && !item.isSaved">*</label>
-        <input (ngModelChange)="itemChanged(item)" *ngIf="item.isEditing" matInput placeholder="Insert item name" [(ngModel)]="item.text">
-        <button (click)="editItem(item)">edit</button>
-        <button (click)="saveItem(item)">save</button>
-        <button (click)="deleteItem(item._id)">delete</button>
+    </mat-list-item>
+  </mat-list>
+</div>
+<div *ngIf="!items.length">
+  No items found.
+</div>
 
-      </li>
 
-    </ul>
-  </div>
-  <div *ngIf="!items.length">
-    No items found.
-  </div>
+
 

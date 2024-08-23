@@ -1,0 +1,19 @@
+
+.item-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.item-input {
+  width: 100%;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.item-buttons {
+  display: flex;
+  gap: 5px;
+}
+
