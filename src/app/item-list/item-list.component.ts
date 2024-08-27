@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 interface ClientItem {
   _id: string;
@@ -61,7 +63,34 @@ export class ItemListComponent implements OnInit {
     { value: 2, viewValue: 'completed' },
   ];
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    public dialog: MatDialog
+  ) {}
+
+  openDeleteItemDialog(itemId: string): void {
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent);
+    dialogRef.componentInstance.title = 'Item deleting';
+    dialogRef.componentInstance.content = 'Do you want to delete item?';
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.deleteItem(itemId);
+      }
+    });
+  }
+
+  openSaveItemDialog(item: any): void {
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent);
+    dialogRef.componentInstance.title = 'Item saving';
+    dialogRef.componentInstance.content = 'Do you want to save item?';
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.saveItem(item);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.getItems();

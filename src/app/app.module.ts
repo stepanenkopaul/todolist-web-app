@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { LoginComponent } from './login/login.component';
+import { ConfirmDeleteDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 import { RouterModule, RouterOutlet, provideRouter } from '@angular/router';
 import { routes } from './app.routes';
@@ -24,6 +25,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbar } from '@angular/material/toolbar';
+import {
+  MatDialogModule,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -41,7 +49,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
 }
 
 @NgModule({
-  declarations: [AppComponent, ItemListComponent, LoginComponent],
+  declarations: [AppComponent, ItemListComponent, LoginComponent, ConfirmDeleteDialogComponent],
   imports: [
     RouterOutlet,
     BrowserModule,
@@ -60,6 +68,11 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatDividerModule,
     MatToolbar,
     RouterModule,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
+    MatDialogTitle,
+    MatDialogModule,
   ],
   providers: [
     provideRouter(routes),
