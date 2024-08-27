@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { LoginComponent } from './login/login.component';
 import { ConfirmDeleteDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ItemComponent } from './item/item.component';
 
 import { RouterModule, RouterOutlet, provideRouter } from '@angular/router';
 import { routes } from './app.routes';
@@ -49,7 +50,13 @@ function initializeKeycloak(keycloak: KeycloakService) {
 }
 
 @NgModule({
-  declarations: [AppComponent, ItemListComponent, LoginComponent, ConfirmDeleteDialogComponent],
+  declarations: [
+    AppComponent,
+    ItemListComponent,
+    LoginComponent,
+    ConfirmDeleteDialogComponent,
+    ItemComponent,
+  ],
   imports: [
     RouterOutlet,
     BrowserModule,

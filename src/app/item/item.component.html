@@ -1,0 +1,78 @@
+<div>
+  <mat-form-field appearance="fill" class="item-input">
+    <mat-label>Item name</mat-label>
+    <input
+      matInput
+      placeholder="Insert item name"
+      [(ngModel)]="item.text"
+      [disabled]="!item.isEditing && disabled"
+      (ngModelChange)="itemChanged()"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Priority</mat-label>
+    <mat-select
+      [disabled]="!item.isEditing && disabled"
+      [(ngModel)]="item.priority"
+      (ngModelChange)="itemChanged()"
+    >
+      <mat-option *ngFor="let priority of priorities" [value]="priority.value">
+        {{ priority.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>State</mat-label>
+    <mat-select
+      [disabled]="!item.isEditing && disabled"
+      [(ngModel)]="item.state"
+      (ngModelChange)="itemChanged()"
+    >
+      <mat-option *ngFor="let state of states" [value]="state.value">
+        {{ state.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Start date</mat-label>
+    <input
+      [disabled]="!item.isEditing && disabled"
+      [(ngModel)]="item.startDate"
+      matInput
+      [matDatepicker]="startDatePicker"
+      (ngModelChange)="itemChanged()"
+    />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #startDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>End date</mat-label>
+    <input
+      [disabled]="!item.isEditing && disabled"
+      [(ngModel)]="item.endDate"
+      matInput
+      [matDatepicker]="endDatePicker"
+      (ngModelChange)="itemChanged()"
+    />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #endDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <div class="item-buttons">
+    <button mat-flat-button color="primary" (click)="editItem()">Edit</button>
+    <button
+      mat-flat-button
+      [color]="!item.isEditing && disabled && !item.isSaved ? 'warn' : 'primary'"
+      (click)="saveItem()"
+    >
+      Save
+    </button>
+    <button mat-flat-button color="warn" (click)="deleteItem()">Delete</button>
+  </div>
+</div>

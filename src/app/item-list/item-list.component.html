@@ -1,6 +1,9 @@
 <p>Item-list works!</p>
 
 <div class="item-container">
+  <app-item [item]="itemToAdd" [priorities]="priorities" [states]="states"></app-item>
+
+  <!--
   <mat-form-field>
     <mat-label>Item name</mat-label>
     <input matInput placeholder="Insert item name" [(ngModel)]="itemToAdd.text" />
@@ -39,6 +42,7 @@
     <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
     <mat-datepicker #endDatePicker></mat-datepicker>
   </mat-form-field>
+-->
 
   <button mat-flat-button (click)="addItem()">Add Item</button>
 </div>
@@ -48,7 +52,15 @@
 <div *ngIf="items.length">
   <mat-list>
     <mat-list-item *ngFor="let item of items">
-      <div class="item-container">
+      <app-item
+        [item]="item"
+        [priorities]="priorities"
+        [states]="states"
+        (itemChangedEvent)="itemChanged($event)"
+        (saveItemEvent)="openSaveItemDialog($event)"
+        (deleteItemEvent)="openDeleteItemDialog($event)"
+      ></app-item>
+      <!--<div class="item-container">
         <mat-form-field appearance="fill" class="item-input">
           <mat-label>Item name</mat-label>
           <input
@@ -127,7 +139,7 @@
             Delete
           </button>
         </div>
-      </div>
+      </div>-->
     </mat-list-item>
   </mat-list>
 </div>

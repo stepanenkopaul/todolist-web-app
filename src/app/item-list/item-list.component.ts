@@ -2,26 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-
-interface ClientItem {
-  _id: string;
-  text: string;
-  priority: number;
-  state: number;
-  startDate: Date;
-  endDate: Date;
-  userId: string;
-  isEditing: boolean;
-  isSaved: boolean;
-}
-
-interface AddItem {
-  text: string;
-  priority: number;
-  state: number;
-  startDate: Date | null;
-  endDate: Date | null;
-}
+import { Item } from '../item/item.component';
 
 interface Priority {
   value: number;
@@ -40,7 +21,8 @@ interface State {
 })
 export class ItemListComponent implements OnInit {
   items: any[] = [];
-  itemToAdd: AddItem = {
+  itemToAdd: Item = {
+    //AddItem = {
     text: '',
     priority: 0,
     state: 0,
@@ -98,7 +80,7 @@ export class ItemListComponent implements OnInit {
 
   getItems() {
     this.apiService.getItems().subscribe((data) => {
-      this.items = data.map((item: ClientItem) => ({
+      this.items = data.map((item: Item /*AddItem*/ /*ClientItem*/) => ({
         ...item,
         isEditing: false,
         isSaved: true,
@@ -107,7 +89,8 @@ export class ItemListComponent implements OnInit {
   }
 
   addItem() {
-    const item: AddItem = {
+    const item: Item = {
+      //AddItem = {
       text: this.itemToAdd.text,
       priority: this.itemToAdd.priority,
       state: this.itemToAdd.state,
